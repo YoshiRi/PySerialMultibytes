@@ -1,0 +1,36 @@
+/* This sample sets the output equal to the input
+         y0[0] = u0[0];
+For complex signals use: y0[0].re = u0[0].re;
+                         y0[0].im = u0[0].im;
+                         y1[0].re = u1[0].re;
+                         y1[0].im = u1[0].im;*/
+
+float f = 0;
+unsigned char buff[4];
+/*
+// Copy 4 bytes
+memcpy(&buff,&in,4);
+*/
+buff[0] = rdata[0];
+buff[1] = rdata[1];
+buff[2] = rdata[2];
+buff[3] = rdata[3];
+
+
+// Because sizeof(f) = 4
+/* memcpy(&f,&buff,4); */
+memcpy(&f,&buff,4);
+ 
+// ?? magic number 128
+data[0] = f*128.0;
+//data[0] = (float)rdata[0]*(float)rdata[1];
+
+
+ser = serial.Serial('/dev/ttyUSB0',115200,bytesize=8,stopbits=1,timeout=2,write_timeout =2)
+
+>>> hex(struct.unpack('<I', struct.pack('<f', 9.8))[0])
+'0x411ccccd'
+>>> data = '\x41\x1c\xcc\xcd'
+>>> ser.write(data)
+4
+
