@@ -7,9 +7,16 @@ class Ser_mbyte():
         self.ser = serial.Serial(PORT,115200,bytesize=8,stopbits=1,timeout=2,write_timeout =2)
         
     def sendfloat(self,data):
-        print(data)
+        #print(data)
         sdata = struct.pack('>f', float(data))
         self.ser.write(sdata)
+       
+    def sendfloats(self,datalist):
+        sdatalist = ''
+        for data in datalist:
+            sdatalist = sdatalist+struct.pack('>f',float(data))
+        self.ser.write(sdatalist)
+        
     
     def __del__(self):
         self.ser.close()
